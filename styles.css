@@ -30,10 +30,10 @@ height: 100vh;
 }
 
 .container{
-  background: linear-gradient(rgba(33,24,14,1) 10%, rgb(101, 79, 49, 0.8) 100%);
+  background: linear-gradient(rgba(33,24,14,1) 10%, rgba(51, 50, 49, 1) 100%);
   margin-bottom: 0px;
   height: 100%;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
   padding: 0px;
   margin-top: 70px;
 }
@@ -106,15 +106,15 @@ h4 {
 
 /* Tab Styles */
 .nav-tabs .nav-link {
-  background-color: #333;
+  background-color: #3333332b;
   color: #ae764b;
-  border-radius: 5px;
+  border-radius: 0px;
   transition: background-color 0.3s;
+  border-bottom: 0px;
 }
 .nav-tabs .nav-link:hover, .nav-tabs .nav-link.active {
-  background-color: #000000;
+  background-color: #333;
   color: #1e1e1e;
-  font-weight: bold;
 }
 
 
@@ -139,7 +139,7 @@ h4 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #333333be;
+  background: #333333;
   color: white;
   padding: 15px;
   width: 100%;
@@ -165,4 +165,20 @@ h4 {
 .footer .center-link {
   flex-grow: 1;
   text-align: center;
+}
+
+
+.confirmation-section::-webkit-scrollbar {
+  width: 0px;
+}
+
+.confirmation-section::-webkit-scrollbar-thumb {
+  background-color: #e7d2c500;
+  border-radius: 10px;
+  border: 0px solid #1e1e1e00;
+}
+
+.confirmation-section::-webkit-scrollbar-track {
+  background-color: #29292900;
+  border-radius: 10px;
 }
