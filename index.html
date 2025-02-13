@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Encryptia Hotel - Room Booking</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="#"><img class="logo" style="width: 60px;" src="https://files.encryptiacity.com/images/EncryptiaHotelLogo.png">    Encryptia Hotel</a> 
+  </nav>
+  <div class="background-image">
+  <div class="container">
+ 
+  <!-- Image Slideshow -->
+  <div id="hotelCarousel" class="carousel slide" data-ride="carousel" data-interval="3000">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="https://encryptia-learning-files.s3.eu-north-1.amazonaws.com/images/Cat_Hotel.png" class="d-block w-100" alt="Hotel Image 1">
+      </div>
+      <div class="carousel-item">
+        <img src="https://encryptia-learning-files.s3.eu-north-1.amazonaws.com/images/neil%20hotel%20qh9.png" class="d-block w-100" alt="Hotel Image 2">
+      </div>
+      <div class="carousel-item">
+        <img src="https://encryptia-learning-files.s3.eu-north-1.amazonaws.com/images/Screenshot%202025-01-07%20130413.png" class="d-block w-100" alt="Hotel Image 3">
+      </div>
+      <div class="carousel-item">
+        <img src="https://encryptia-learning-files.s3.eu-north-1.amazonaws.com/images/Screenshot%202024-12-20%20141053.png" class="d-block w-100" alt="Hotel Image 4">
+      </div>
+      <div class="carousel-item">
+        <img src="https://encryptia-learning-files.s3.eu-north-1.amazonaws.com/images/Screenshot%202024-12-20%20133639.png" class="d-block w-100" alt="Hotel Image 5">
+      </div> </div></div>
+         <!-- Tabs -->
+    <ul class="nav nav-tabs mt-4" id="hotelTabs">
+        <li class="nav-item">
+          <a class="nav-link active" id="selector-tab" data-toggle="tab" href="#selector">Room Selector</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="register-tab" data-toggle="tab" href="#register">Register/Order</a>
+        </li>
+      </ul>
+   
+  <div class="selectors">
+    <div class="tab-content">
+      <!-- Room Selector Tab -->
+      <div class="tab-pane fade show active" id="selector">
+        <h1 class="text-center">Select Your Room</h1>
+        <div class="row">
+
+            
+          <!-- Room 1 -->
+          <div class="col-md-4">
+            <div class="card room-card">
+              <img src="https://encryptia-learning-files.s3.eu-north-1.amazonaws.com/images/Cat_Hotel.png" alt="Standard Room">
+              <div class="card-body">
+                <h5 class="card-title">Standard Room</h5>
+                <h5 class="card-title">$100/night</h5>
+                <button class="btn btn-select btn-block" onclick="redirectToRegister('Standard Room', 100)">Select</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Room 2 -->
+          <div class="col-md-4">
+            <div class="card room-card">
+              <img src="https://encryptia-learning-files.s3.eu-north-1.amazonaws.com/images/Cat_Hotel.png" alt="Dubble Room">
+              <div class="card-body">
+                <h5 class="card-title">Dubble Room</h5>
+                <h5 class="card-title">$150/night</h5>
+                <button class="btn btn-select btn-block" onclick="redirectToRegister('Deluxe Room', 150)">Select</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Room 3 -->
+          <div class="col-md-4">
+            <div class="card room-card">
+              <img src="https://encryptia-learning-files.s3.eu-north-1.amazonaws.com/images/Cat_Hotel.png" alt="Deluxe Room">
+              <div class="card-body">
+                <h5 class="card-title">Deluxe Room</h5>
+                <h5 class="card-title">$200/night</h5>
+                <button class="btn btn-select btn-block" onclick="redirectToRegister('Deluxe Room', 200)">Select</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Register/Order Tab -->
+      <div class="tab-pane fade" id="register">
+        <div class="register-form mx-auto">
+          <form id="orderForm">
+            <div class="form-group">
+              <label for="roomSelected">Room Selected</label>
+              <input type="text" class="form-control" id="roomSelected" readonly>
+            </div>
+            <div class="form-group">
+              <label for="customerName">Name</label>
+              <input type="text" class="form-control" id="customerName" required>
+            </div>
+            <div class="form-group">
+              <label for="customerEmail">Email</label>
+              <input type="email" class="form-control" id="customerEmail" required>
+            </div>
+            <div class="form-group">
+              <label for="numPeople">Number of People</label>
+              <select class="form-control" id="numPeople" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="checkinDate">Check-in Date</label>
+              <input type="date" class="form-control" id="checkinDate" required>
+            </div>
+            <div class="form-group">
+              <label for="checkoutDate">Check-out Date</label>
+              <input type="date" class="form-control" id="checkoutDate" required>
+            </div>
+            <div class="form-group">
+              <label>Extras</label><br>
+              <input type="checkbox" id="breakfast" onchange="updatePrice()"> Breakfast ($10/day) <br>
+              <input type="checkbox" id="dinner" onchange="updatePrice()"> Dinner ($20/day)
+            </div>
+            <h4>Total Price: <span id="totalPrice">$0</span></h4>
+            <button type="submit" class="btn btn-select btn-block">Checkout</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+  <footer class="footer">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+</footer>
+  <!-- Bootstrap & jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Custom Script -->
+  <script src="scripts.js"></script>
+</body>
+</html>
