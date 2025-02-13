@@ -1,4 +1,8 @@
 /* General Styling */
+* {
+  box-sizing: borde-box;
+}
+
 body {
   background-color: #1e1e1e;  /* Darker background for contrast */
   font-family: Arial, sans-serif;
