@@ -1,24 +1,5 @@
 let roomPrice = 0;
 let totalDays = 1;
-let slideIndex = 0;
-
-document.addEventListener("DOMContentLoaded", function () {
-  showSlides();
-  document.getElementById("checkinDate").value = new Date().toISOString().split("T")[0];
-});
-
-function plusSlides(n) {
-  slideIndex += n;
-  showSlides();
-}
-
-function showSlides() {
-  let slides = document.getElementsByClassName("slides");
-  if (slideIndex >= slides.length) slideIndex = 0;
-  if (slideIndex < 0) slideIndex = slides.length - 1;
-  for (let slide of slides) slide.style.display = "none";
-  slides[slideIndex].style.display = "block";
-}
 
 function redirectToRegister(roomName, price) {
   document.getElementById('roomSelected').value = roomName;
@@ -26,14 +7,33 @@ function redirectToRegister(roomName, price) {
   document.getElementById('checkinDate').value = "";  
   document.getElementById('checkoutDate').value = "";
   updatePrice();
-  openTab(null, 'register');
+  $('.nav-tabs a[href="#register"]').tab('show');
 }
 
 function calculateDays() {
   let checkin = new Date(document.getElementById('checkinDate').value);
   let checkout = new Date(document.getElementById('checkoutDate').value);
-  totalDays = checkout > checkin ? Math.ceil((checkout - checkin) / (1000 * 60 * 60 * 24)) : 1;
+
+  if (checkout > checkin) {
+    totalDays = Math.ceil((checkout - checkin) / (1000 * 60 * 60 * 24));
+  } else {
+    totalDays = 1;
+  }
+
   updatePrice();
+}
+
+function updatePrice() {
+  if (!roomPrice) {
+    document.getElementById('totalPrice').innerText = "$0";
+    return;
+  }
+
+  let breakfast = document.getElementById('breakfast').checked ? 10 * totalDays : 0;
+  let dinner = document.getElementById('dinner').checked ? 20 * totalDays : 0;
+
+  let total = (roomPrice * totalDays) + breakfast + dinner;
+  document.getElementById('totalPrice').innerText = `$${total}`;
 }
 
 document.getElementById('checkinDate').addEventListener('change', calculateDays);
@@ -41,21 +41,12 @@ document.getElementById('checkoutDate').addEventListener('change', calculateDays
 document.getElementById('breakfast').addEventListener('change', updatePrice);
 document.getElementById('dinner').addEventListener('change', updatePrice);
 
-function updatePrice() {
-  if (!roomPrice) {
-    document.getElementById('totalPrice').innerText = "$0";
-    return;
-  }
-  let breakfast = document.getElementById('breakfast').checked ? 10 * totalDays : 0;
-  let dinner = document.getElementById('dinner').checked ? 20 * totalDays : 0;
-  document.getElementById('totalPrice').innerText = `$${(roomPrice * totalDays) + breakfast + dinner}`;
-}
+$(document).ready(function() {
+  $('#hotelCarousel').carousel();
+});
 
-function openTab(event, tabName) {
-  let tabs = document.getElementsByClassName("tab-content");
-  for (let tab of tabs) tab.style.display = "none";
-  document.getElementById(tabName).style.display = "block";
-  let buttons = document.getElementsByClassName("tab-button");
-  for (let btn of buttons) btn.classList.remove("active");
-  if (event) event.currentTarget.classList.add("active");
-}
+document.addEventListener("DOMContentLoaded", function () {
+  // Set default check-in date to today's date
+  const today = new Date().toISOString().split("T")[0];
+  document.getElementById("checkinDate").value = today;
+});
