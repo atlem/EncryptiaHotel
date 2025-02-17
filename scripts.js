@@ -1,81 +1,52 @@
-document.addEventListener("DOMContentLoaded", function () {
-    fetch("data.json")
-        .then(response => response.json())
-        .then(data => {
-            const destinationSelect = document.getElementById("destination");
-            const hotelSelect = document.getElementById("hotel");
-            const travelSelect = document.getElementById("travel");
-            const destinationList = document.getElementById("destination-list");
-            const slideshow = document.getElementById("slideshow");
-            const bookingSection = document.getElementById("booking");
+let roomPrice = 0;
+let totalDays = 1;
 
-            data.destinations.forEach(destination => {
-                let option = document.createElement("option");
-                option.value = destination.name;
-                option.textContent = destination.name;
-                destinationSelect.appendChild(option);
-                
-                let destinationItem = document.createElement("div");
-                destinationItem.innerHTML = `<h3>${destination.name}</h3>
-                <img src="${destination.image}" alt="${destination.name}" class="thumbnail" onclick="selectDestination('${destination.name}')">
-                <p>${destination.description}</p>`;
-                destinationList.appendChild(destinationItem);
-                
-                let slide = document.createElement("img");
-                slide.src = destination.image;
-                slide.alt = destination.name;
-                slide.classList.add("slide");
-                slide.onclick = () => {
-                    selectDestination(destination.name);
-                    bookingSection.scrollIntoView({ behavior: 'smooth' });
-                };
-                slideshow.appendChild(slide);
-            });
+function redirectToRegister(roomName, price) {
+  document.getElementById('roomSelected').value = roomName;
+  roomPrice = price;
+  document.getElementById('checkinDate').value = "";  
+  document.getElementById('checkoutDate').value = "";
+  updatePrice();
+  $('.nav-tabs a[href="#register"]').tab('show');
+}
 
-            ["Train", "Bus", "Flight", "Teleport"].forEach(mode => {
-                let option = document.createElement("option");
-                option.value = mode.toLowerCase();
-                option.textContent = mode;
-                travelSelect.appendChild(option);
-            });
+function calculateDays() {
+  let checkin = new Date(document.getElementById('checkinDate').value);
+  let checkout = new Date(document.getElementById('checkoutDate').value);
 
-            startSlideshow();
-        });
+  if (checkout > checkin) {
+    totalDays = Math.ceil((checkout - checkin) / (1000 * 60 * 60 * 24));
+  } else {
+    totalDays = 1;
+  }
+
+  updatePrice();
+}
+
+function updatePrice() {
+  if (!roomPrice) {
+    document.getElementById('totalPrice').innerText = "$0";
+    return;
+  }
+
+  let breakfast = document.getElementById('breakfast').checked ? 10 * totalDays : 0;
+  let dinner = document.getElementById('dinner').checked ? 20 * totalDays : 0;
+
+  let total = (roomPrice * totalDays) + breakfast + dinner;
+  document.getElementById('totalPrice').innerText = `$${total}`;
+}
+
+document.getElementById('checkinDate').addEventListener('change', calculateDays);
+document.getElementById('checkoutDate').addEventListener('change', calculateDays);
+document.getElementById('breakfast').addEventListener('change', updatePrice);
+document.getElementById('dinner').addEventListener('change', updatePrice);
+
+$(document).ready(function() {
+  $('#hotelCarousel').carousel();
 });
 
-function selectDestination(name) {
-    document.getElementById("destination").value = name;
-}
-
-function startSlideshow() {
-    let index = 0;
-    const slides = document.querySelectorAll(".slide");
-    
-    function showSlide() {
-        slides.forEach(slide => slide.style.display = "none");
-        slides[index].style.display = "block";
-        index = (index + 1) % slides.length;
-    }
-    
-    showSlide();
-    setInterval(showSlide, 3000);
-}
-
-function calculatePrice() {
-    fetch("data.json")
-        .then(response => response.json())
-        .then(data => {
-            const destination = document.getElementById("destination").value;
-            const hotel = document.getElementById("hotel").value;
-            const travel = document.getElementById("travel").value;
-            const nights = parseInt(document.getElementById("nights").value);
-            
-            const destinationPrice = data.destinations.find(d => d.name === destination).price;
-            const hotelPrice = data.hotels.find(h => h.name === hotel).price;
-            const travelCost = travel === "teleport" ? 500 : 50;
-            
-            const totalPrice = (destinationPrice + hotelPrice + travelCost) * nights;
-            
-            document.getElementById("priceOutput").textContent = `Total Price: $${totalPrice}`;
-        });
-}
+document.addEventListener("DOMContentLoaded", function () {
+  // Set default check-in date to today's date
+  const today = new Date().toISOString().split("T")[0];
+  document.getElementById("checkinDate").value = today;
+});
