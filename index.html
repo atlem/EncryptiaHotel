@@ -23,7 +23,7 @@
 </head>
 <body>
   <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand-lg">
+  <nav class="navbar1 navbar-expand-lg">
     <a class="navbar-brand" href="#"><img alt="logo" class="logo" style="width: 60px;" src="https://files.encryptiacity.com/images/EncryptiaHotelLogo.png">    Encryptia Hotel</a> 
   </nav>
   <div class="background-image">
@@ -48,7 +48,7 @@
         <img src="https://encryptia-learning-files.s3.eu-north-1.amazonaws.com/images/Screenshot%202024-12-20%20133639.png" class="d-block w-100" alt="Hotel Image 5">
       </div> </div></div>
          <!-- Tabs -->
-    <ul class="nav nav-tabs mt-4" id="hotelTabs">
+    <ul class="nav1 nav-tabs mt-4" id="hotelTabs">
         <li class="nav-item">
           <a class="nav-link active" id="selector-tab" data-toggle="tab" href="#selector">Room Selector</a>
         </li>
@@ -67,7 +67,7 @@
 
           <!-- Room 1 -->
           <div class="col-md-4">
-            <div class="card room-card">
+            <div class="cards room-card">
               <img src="https://encryptia-learning-files.s3.eu-north-1.amazonaws.com/images/Cat_Hotel.png" alt="Standard Room">
               <div class="card-body">
                 <h5 class="card-title">Standard Room</h5>
@@ -79,7 +79,7 @@
 
           <!-- Room 2 -->
           <div class="col-md-4">
-            <div class="card room-card">
+            <div class="cards room-card">
               <img src="https://encryptia-learning-files.s3.eu-north-1.amazonaws.com/images/Cat_Hotel.png" alt="Dubble Room">
               <div class="card-body">
                 <h5 class="card-title">Dubble Room</h5>
@@ -91,7 +91,7 @@
 
           <!-- Room 3 -->
           <div class="col-md-4">
-            <div class="card room-card">
+            <div class="cards room-card">
               <img src="https://encryptia-learning-files.s3.eu-north-1.amazonaws.com/images/Cat_Hotel.png" alt="Deluxe Room">
               <div class="card-body">
                 <h5 class="card-title">Deluxe Room</h5>
@@ -163,29 +163,6 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <!-- Custom Script -->
-  <script src="scripts.js"></script>
-    <div id="allclasses" style="text-align:left">
-</div>   
-<script type="text/javascript">
-var allTags = document.body.getElementsByTagName('*');
-var classNames = {};
-for (var tg = 0; tg< allTags.length; tg++) {
-    var tag = allTags[tg];
-    if (tag.className) {
-     var classes = tag.className.split(" ");
-     for (var cn = 0; cn < classes.length; cn++){
-     var cName = classes[cn];
-     if (! classNames[cName]) 
-         {
-       classNames[cName] = true;
-     }
-   }
-    }   
-}
-var classList = [];
-for (var name in classNames) 
-    classList.push(name+'<br />');
-document.getElementById('allclasses').innerHTML = classList.sort();
-</script>
+  <script src="scripts.js"></script> 
 </body>
 </html>
