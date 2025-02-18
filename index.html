@@ -164,5 +164,28 @@
 
   <!-- Custom Script -->
   <script src="scripts.js"></script>
+    <div id="allclasses" style="text-align:left">
+</div>   
+<script type="text/javascript">
+var allTags = document.body.getElementsByTagName('*');
+var classNames = {};
+for (var tg = 0; tg< allTags.length; tg++) {
+    var tag = allTags[tg];
+    if (tag.className) {
+     var classes = tag.className.split(" ");
+     for (var cn = 0; cn < classes.length; cn++){
+     var cName = classes[cn];
+     if (! classNames[cName]) 
+         {
+       classNames[cName] = true;
+     }
+   }
+    }   
+}
+var classList = [];
+for (var name in classNames) 
+    classList.push(name+'<br />');
+document.getElementById('allclasses').innerHTML = classList.sort();
+</script>
 </body>
 </html>
